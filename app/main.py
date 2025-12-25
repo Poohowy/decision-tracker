@@ -13,4 +13,4 @@ def health_check():
 @app.get("/health/db")
 def health_db(db: Session = Depends(get_db)):
     db.execute(text("SELECT 1"))
-    return {"db": "ok"}
+    return {"status": "ok"}
