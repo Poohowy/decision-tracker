@@ -22,5 +22,5 @@ class DecisionReview(Base):
     )
 
     __table_args__ = (
-        CheckConstraint("value BETWEEN 1 AND 6", name="ck_rating_value"),
+        CheckConstraint("rating BETWEEN 1 AND 6", name="ck_rating_value"),
     )
