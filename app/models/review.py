@@ -14,11 +14,11 @@ class DecisionReview(Base):
     )
     review = Column(String, nullable=False)
     lessons_learned = Column(String, nullable=False)
-    rating = Column(String, nullable=False)
+    rating = Column(Integer, nullable=False)
 
-    decisions = relationship(
+    decision = relationship(
         "Decision",
-        back_populates="decision_reviews",
+        back_populates="reviews",
     )
 
     __table_args__ = (

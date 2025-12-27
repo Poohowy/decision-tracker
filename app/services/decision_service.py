@@ -6,9 +6,7 @@ from app.db.session import get_db
 from app.models import Decision
 from app.schemas.decision import DecisionCreate, DecisionRead
 
-def list_decisions(
-    db: Session = Depends(get_db)
-):
+def list_decisions(db: Session) -> List[Decision]:
     decisions = (
         db.query(Decision)
         .offset(0)
@@ -17,7 +15,7 @@ def list_decisions(
     )
     return decisions
 
-def get_decision_by_id(decision_id: int, db: Session = Depends(get_db)):
+def get_decision_by_id(decision_id: int, db: Session) -> Decision:
     decision = db.get(Decision, decision_id)
 
     if not decision:
@@ -28,7 +26,7 @@ def get_decision_by_id(decision_id: int, db: Session = Depends(get_db)):
 
     return decision
 
-def create_decision(data: DecisionCreate, db: Session = Depends(get_db)):
+def create_decision(data: DecisionCreate, db: Session) -> Decision:
     decision = Decision(
         owner_id=data.owner_id,
         title=data.title,

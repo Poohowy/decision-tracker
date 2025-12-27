@@ -23,7 +23,8 @@ class Decision(Base):
         back_populates="decisions",
     )
 
-    decision_reviews = relationship(
+    reviews = relationship(
         "DecisionReview",
-        back_populates="decisions",
+        back_populates="decision",
+        cascade="all, delete-orphan",
     )

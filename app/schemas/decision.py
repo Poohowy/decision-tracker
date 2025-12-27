@@ -10,6 +10,9 @@ class DecisionRead(BaseModel):
     final_decision: str = None
     expectations: Optional[str] = None
 
+    class Config:
+        orm_mode = True
+
 class DecisionCreate(BaseModel):
     owner_id: int
     title: str = Field(min_length=1, max_length=120)

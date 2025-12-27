@@ -6,7 +6,7 @@ from app.db.session import get_db
 from app.schemas.decision import DecisionCreate, DecisionRead
 from app.services.decision_service import create_decision, get_decision_by_id, list_decisions
 
-router = APIRouter(prefix="/decision")
+router = APIRouter(prefix="/decisions")
 
 @router.get("", response_model=List[DecisionRead])
 def list_decisions_endpoint(
@@ -14,7 +14,7 @@ def list_decisions_endpoint(
 ) -> List[DecisionRead]:
     return list_decisions(db=db)
 
-@router.get("/{id}", response_model=DecisionRead)
+@router.get("/{decision_id}", response_model=DecisionRead)
 def get_decision_by_id_endpoint(
     decision_id: int,
     db: Session = Depends(get_db)
