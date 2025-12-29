@@ -13,7 +13,7 @@ class DecisionReview(Base):
         nullable=False,
     )
     review = Column(String, nullable=False)
-    lessons_learned = Column(String, nullable=False)
+    lessons_learned = Column(String, nullable=True)
     rating = Column(Integer, nullable=False)
 
     decision = relationship(
