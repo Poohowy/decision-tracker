@@ -10,8 +10,7 @@ class DecisionRead(BaseModel):
     final_decision: str = None
     expectations: Optional[str] = None
 
-    class Config:
-        orm_mode = True
+    model_config = {"from_attributes": True}
 
 class DecisionCreate(BaseModel):
     owner_id: int
