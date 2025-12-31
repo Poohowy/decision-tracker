@@ -1,30 +1,27 @@
-from typing import List
-
-from fastapi import Depends, HTTPException
+from sqlalchemy import Sequence, select
 from sqlalchemy.orm import Session
-from app.db.session import get_db
-from app.models import Decision
-from app.schemas.decision import DecisionCreate, DecisionRead
 
-def list_decisions(db: Session) -> List[Decision]:
-    decisions = (
-        db.query(Decision)
+from app.models import Decision
+from app.schemas.decision import DecisionCreate
+from app.exceptions.decision import DecisionNotFound
+
+def list_decisions(db: Session) -> Sequence[Decision]:
+    stmt = (
+        select(Decision)
         .offset(0)
         .limit(20)
-        .all()
     )
-    return decisions
+    return db.scalars(stmt).all()
 
-def get_decision_by_id(decision_id: int, db: Session) -> Decision:
+
+def get_decision_by_id(decision_id: int, db: Session) -> type[Decision]:
     decision = db.get(Decision, decision_id)
 
     if not decision:
-        raise HTTPException(
-            status_code=404,
-            detail="Decision not found",
-        )
+        raise DecisionNotFound(decision_id)
 
     return decision
+
 
 def create_decision(data: DecisionCreate, db: Session) -> Decision:
     decision = Decision(
