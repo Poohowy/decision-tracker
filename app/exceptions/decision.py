@@ -1,0 +1,2 @@
+class DecisionNotFound(Exception):
+    pass
